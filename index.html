@@ -380,7 +380,17 @@
   .project-panel p{ color: var(--ink-dim); margin-top: 16px; max-width: 52ch; }
   .project-meta{ display:flex; flex-wrap:wrap; gap: 8px; margin-top: 20px; }
   .project-meta .tag{ font-size: 12.5px; padding: 7px 12px; }
-  .project-actions{ display:flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .project-more{ margin-top: 28px; }
+  .project-details{
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    max-width: 60ch;
+  }
+  .project-details p{ margin: 0 0 14px; color: var(--ink-dim); }
+  .project-details p:last-child{ margin-bottom: 0; }
+  .project-details strong{ color: var(--ink); }
 
   /* ---------- Certifications ---------- */
   .cert-list{ display:flex; flex-direction:column; }
@@ -648,9 +658,16 @@
             <span class="tag">Voting System</span>
             <span class="tag">Academic Project</span>
           </div>
-          <div class="project-actions">
-            <button class="btn btn-primary" disabled title="Link coming soon">View Project</button>
-            <button class="btn btn-outline" disabled title="Link coming soon">GitHub</button>
+          <div class="project-more">
+            <button class="btn btn-primary" id="projectMoreBtn" type="button" aria-expanded="false" aria-controls="projectDetails">
+              View More
+            </button>
+            <div class="project-details" id="projectDetails" hidden>
+              <p><strong>Project Overview:</strong> The Remotely Polling System for College is a proposed web-based election platform designed to make college elections easier to organize and participate in remotely.</p>
+              <p><strong>Key Features:</strong> The concept includes voter registration and management, candidate management, secure remote voting, election administration, and clear result declaration.</p>
+              <p><strong>Purpose:</strong> The system aims to reduce manual election work, provide a convenient digital voting experience, and maintain a structured process from voter management through final results.</p>
+              <p><strong>Project Focus:</strong> This academic project focuses on applying web application development concepts to a real-world college election scenario.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -752,6 +769,16 @@
     navLinks.classList.remove('open');
     navToggle.setAttribute('aria-expanded', false);
   }));
+
+  const projectMoreBtn = document.getElementById('projectMoreBtn');
+  const projectDetails = document.getElementById('projectDetails');
+
+  projectMoreBtn.addEventListener('click', () => {
+    const isExpanded = projectMoreBtn.getAttribute('aria-expanded') === 'true';
+    projectMoreBtn.setAttribute('aria-expanded', String(!isExpanded));
+    projectMoreBtn.textContent = isExpanded ? 'View More' : 'View Less';
+    projectDetails.hidden = isExpanded;
+  });
 
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
